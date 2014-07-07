@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Historical</title>
+ 
+<!--Leaflet imports-->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+<!--link to jquery-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<!--link to Leaflet point-in-polygon-->
+<script src="leaflet-pip.min.js"></script>
+
+
+ <!-- loading in css -->
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+ <!-- loading in the markers geojson layers -->
+<script type = "text/javascript" src="markers.js"></script>
+
+<!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      //google.setOnLoadCallback(belAirInitialize);
+
+
+      //Bel Air
+      //-------------------------------------------------------------------------------
+function belAirInitialize() {
+          drawbelAirMonthsChart();
+          drawbelAirCausesChart();
+          drawbelAirWeaponsChart();
+      }
+      function drawbelAirMonthsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Janvier', 1],
+          ['Fevrier', 0],
+          ['Mars', 5],
+          ['Avril', 1],
+          ['Mai', 1],
+          ['Juin', 3],
+          ['Juillet', 0],
+          ['Aout', 0],
+          ['Spetembre', 4],
+          ['Octobre', 3],
+          ['Novembre', 0],
+          ['Decembre', 1]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Crimes per Month',
+                opacity:0.8,
+                       titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'hAxis': {baselineColor: 'white', textStyle: {color: 'white', fontName: 'Lucida Sans Unicode'}},
+                      'vAxis': {textStyle: {color:'white', fontName: 'Lucida Sans Unicode'}},
+                      legend:'none'
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var belAirMonthsChart = new google.visualization.BarChart(document.getElementById('belAirMonthsChart_div'));
+        belAirMonthsChart.draw(data, options);
+      }
+
+      function drawbelAirCausesChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Accusation Vol', 1],
+          ['Appartenance Base 117', 5],
+          ['Conflit Arme', 2],
+          ['Conflit Banditisme', 1],
+          ['Inconnu', 1],
+          ['Vol', 9]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'legend':{ textStyle :{ 
+                        color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10,
+              }}
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var belAirCausesChart = new google.visualization.PieChart(document.getElementById('belAirCausesChart_div'));
+        belAirCausesChart.draw(data, options);
+      }
+
+      function drawbelAirWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Arme Blanche', 2],
+          ['Lapidation', 3],
+          ['Par Balle', 11],
+          ['Par Balle et Arme Blanche', 3]
+        ]);
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var belAirWeaponsChart = new google.visualization.PieChart(document.getElementById('belAirWeaponsChart_div'));
+        belAirWeaponsChart.draw(data, options);
+      }
+
+      //Delmas 2-4
+      //-------------------------------------------------------------------------------
+      function delmasInitialize() {
+      		drawDelmasMonthsChart();
+      		drawDelmasCausesChart();
+          drawDelmasWeaponsChart();
+      }
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+
+      //Bar Chart with Crime totals per Day of Month
+      function drawDelmasMonthsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Janvier', 2],
+          ['Fevrier', 7],
+          ['Mars', 8],
+          ['Avril', 0],
+          ['Mai', 1],
+          ['Juin', 0],
+          ['Juillet', 0],
+          ['Aout', 4],
+          ['Spetembre', 0],
+          ['Octobre', 6],
+          ['Novembre', 4],
+          ['Decembre', 0]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Crimes per Month',
+        				opacity:0.8,
+                       titleTextStyle: { color: 'white',
+						  fontName: 'Lucida Sans Unicode',
+						  fontSize: 10},
+        				backgroundColor: 'black',
+                       	'width':400,
+                       	'height':300,
+                   		'hAxis': {baselineColor: 'white', textStyle: {color: 'white', fontName: 'Lucida Sans Unicode'}},
+                   		'vAxis': {textStyle: {color:'white', fontName: 'Lucida Sans Unicode'}},
+                   		legend:'none'
+						};
+
+        // Instantiate and draw our chart, passing in some options.
+        var delmasMonthsChart = new google.visualization.BarChart(document.getElementById('delmasMonthsChart_div'));
+        delmasMonthsChart.draw(data, options);
+      }
+
+      function drawDelmasCausesChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Conflit Base', 4],
+          ['Banditisme', 5],
+          ['Conflit', 5],
+          ['Appartenance base 117', 7],
+          ['Conflit Interpersonel', 1],
+          ['Conflit Politique', 6],
+          ['Vol', 4]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+        				titleTextStyle: { color: 'white',
+						  fontName: 'Lucida Sans Unicode',
+						  fontSize: 10},
+        				backgroundColor: 'black',
+                       	'width':400,
+                       	'height':300,
+                   		'legend':{ textStyle :{ 
+	                   		color: 'white',
+							fontName: 'Lucida Sans Unicode',
+							fontSize: 10,
+							}}
+						};
+
+        // Instantiate and draw our chart, passing in some options.
+        var delmasCausesChart = new google.visualization.PieChart(document.getElementById('delmasCausesChart_div'));
+        delmasCausesChart.draw(data, options);
+      }
+
+      function drawDelmasWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Arme Blanche', 7],
+          ['Par Balle', 25]
+        ]);
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var delmasWeaponsChart = new google.visualization.PieChart(document.getElementById('delmasWeaponsChart_div'));
+        delmasWeaponsChart.draw(data, options);
+      }
+
+
+      //-------------------------------------------------------------------------------------------------------
+
+      //Fort National
+
+      function fnInitialize() {
+      		drawfnMonthsChart();
+          drawfnCausesChart();
+          drawfnWeaponsChart();
+      }
+      function drawfnMonthsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Janvier', 0],
+          ['Fevrier', 0],
+          ['Mars', 0],
+          ['Avril', 0],
+          ['Mai', 0],
+          ['Juin', 1],
+          ['Juillet', 1],
+          ['Aout', 0],
+          ['Spetembre', 0],
+          ['Octobre', 1],
+          ['Novembre', 0],
+          ['Decembre', 0]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Crimes per Month',
+                opacity:0.8,
+                       titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'hAxis': {baselineColor: 'white', textStyle: {color: 'white', fontName: 'Lucida Sans Unicode'}},
+                      'vAxis': {textStyle: {color:'white', fontName: 'Lucida Sans Unicode'}},
+                      legend:'none'
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var fnMonthsChart = new google.visualization.BarChart(document.getElementById('fnMonthsChart_div'));
+        fnMonthsChart.draw(data, options);
+      }
+
+      function drawfnCausesChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Conflit Arme', 1],
+          ['Conflit Politique', 1],
+          ['Operation Policiere', 1]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'legend':{ textStyle :{ 
+                        color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10,
+              }}
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var fnCausesChart = new google.visualization.PieChart(document.getElementById('fnCausesChart_div'));
+        fnCausesChart.draw(data, options);
+      }
+
+      function drawfnWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Par balle', 1]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var fnWeaponsChart = new google.visualization.PieChart(document.getElementById('fnWeaponsChart_div'));
+        fnWeaponsChart.draw(data, options);
+      }
+      //------------------------------------------------------------------------------------------------
+      //Fortouron La Saline
+      
+      function flsInitialize() {
+          drawflsMonthsChart();
+          drawflsCausesChart();
+          drawflsWeaponsChart();
+      }
+      function drawflsMonthsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Janvier', 2],
+          ['Fevrier', 0],
+          ['Mars', 5],
+          ['Avril', 0],
+          ['Mai', 0],
+          ['Juin', 1],
+          ['Juillet', 4],
+          ['Aout', 3],
+          ['Spetembre', 3],
+          ['Octobre', 1],
+          ['Novembre', 3],
+          ['Decembre', 0]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Crimes per Month',
+                opacity:0.8,
+                       titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'hAxis': {baselineColor: 'white', textStyle: {color: 'white', fontName: 'Lucida Sans Unicode'}},
+                      'vAxis': {textStyle: {color:'white', fontName: 'Lucida Sans Unicode'}},
+                      legend:'none'
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var flsMonthsChart = new google.visualization.BarChart(document.getElementById('flsMonthsChart_div'));
+        flsMonthsChart.draw(data, options);
+      }
+
+      function drawflsCausesChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Conflit Arme', 1],
+          ['Banditisme', 4],
+          ['Conflit Interet', 6],
+          ['Conflit Domestique', 1],
+          ['Jalousie', 1],
+          ['Mesentante', 1],
+          ['Revenche', 2],
+          ['Conflit', 3],
+          ['Vol', 2]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'legend':{ textStyle :{ 
+                        color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10,
+              }}
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var flsCausesChart = new google.visualization.PieChart(document.getElementById('flsCausesChart_div'));
+        flsCausesChart.draw(data, options);
+      }
+
+      function drawflsWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Par Balle', 18],
+          ['Arme Blanche', 2],
+          ['Par Balle et Arme Blanche', 1],
+          ['Bastonnade', 1]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var flsWeaponsChart = new google.visualization.PieChart(document.getElementById('flsWeaponsChart_div'));
+        flsWeaponsChart.draw(data, options);
+      }
+
+
+      //--------------------------------------------------------------------------------------------------------
+
+
+      //Solino
+      
+      function solinoInitialize() {
+          drawSolinoMonthsChart();
+          drawSolinoCausesChart();
+          drawSolinoWeaponsChart();
+      }
+      function drawSolinoMonthsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Janvier', 0],
+          ['Fevrier', 0],
+          ['Mars', 0],
+          ['Avril', 0],
+          ['Mai', 1],
+          ['Juin', 6],
+          ['Juillet', 0],
+          ['Aout', 0],
+          ['Spetembre', 0],
+          ['Octobre', 0],
+          ['Novembre', 0],
+          ['Decembre', 0]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Crimes per Month',
+                opacity:0.8,
+                       titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'hAxis': {baselineColor: 'white', textStyle: {color: 'white', fontName: 'Lucida Sans Unicode'}},
+                      'vAxis': {textStyle: {color:'white', fontName: 'Lucida Sans Unicode'}},
+                      legend:'none'
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var solinoMonthsChart = new google.visualization.BarChart(document.getElementById('solinoMonthsChart_div'));
+        solinoMonthsChart.draw(data, options);
+      }
+
+      function drawSolinoCausesChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Conflit Arme', 6],
+          ['Conflit Conjugale', 2]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'legend':{ textStyle :{ 
+                        color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10,
+              }}
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var solinoCausesChart = new google.visualization.PieChart(document.getElementById('solinoCausesChart_div'));
+        solinoCausesChart.draw(data, options);
+      }
+
+      function drawSolinoWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Par Balle', 6],
+          ['Bastonnade', 1]
+        ]);
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var solinoWeaponsChart = new google.visualization.PieChart(document.getElementById('solinoWeaponsChart_div'));
+        solinoWeaponsChart.draw(data, options);
+      }
+
+
+//----------------------------------------------------------------------------------------------
+
+
+      //St Martin
+      
+      function stMartinInitialize() {
+          drawStMartinMonthsChart();
+          drawStMartinCausesChart();
+          drawStMartinWeaponsChart();
+      }
+      function drawStMartinMonthsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Janvier', 1],
+          ['Fevrier', 3],
+          ['Mars', 0],
+          ['Avril', 0],
+          ['Mai', 2],
+          ['Juin', 0],
+          ['Juillet', 1],
+          ['Aout', 1],
+          ['Spetembre', 0],
+          ['Octobre', 1],
+          ['Novembre', 0],
+          ['Decembre', 0]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Crimes per Month',
+                opacity:0.8,
+                       titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'hAxis': {baselineColor: 'white', textStyle: {color: 'white', fontName: 'Lucida Sans Unicode'}},
+                      'vAxis': {textStyle: {color:'white', fontName: 'Lucida Sans Unicode'}},
+                      legend:'none'
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var stMartinMonthsChart = new google.visualization.BarChart(document.getElementById('stMartinMonthsChart_div'));
+        stMartinMonthsChart.draw(data, options);
+      }
+
+      function drawStMartinCausesChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Banditisme', 3],
+          ['Conflit', 2],
+          ['Conflit Arme', 2],
+          ['Conflit Domestique', 2],
+          ['Vol', 1]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'legend':{ textStyle :{ 
+                        color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10,
+              }}
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var stMartinCausesChart = new google.visualization.PieChart(document.getElementById('stMartinCausesChart_div'));
+        stMartinCausesChart.draw(data, options);
+      }
+
+      function drawStMartinWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Par Balle', 9]
+        ]);
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var stMartinWeaponsChart = new google.visualization.PieChart(document.getElementById('stMartinWeaponsChart_div'));
+        stMartinWeaponsChart.draw(data, options);
+      }
+
+//--------------------------------------------------------------------------------------------------------------
+      //Warf Jeremie
+
+      function wjerInitialize() {
+          drawwjerMonthsChart();
+          drawwjerCausesChart();
+          drawwjerWeaponsChart();
+      }
+      function drawwjerMonthsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Day');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Janvier', 4],
+          ['Fevrier', 7],
+          ['Mars', 3],
+          ['Avril', 2],
+          ['Mai', 3],
+          ['Juin', 0],
+          ['Juillet', 7],
+          ['Aout', 0],
+          ['Spetembre', 8],
+          ['Octobre', 3],
+          ['Novembre', 2],
+          ['Decembre', 1]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Crimes per Month',
+                opacity:0.8,
+                       titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'hAxis': {baselineColor: 'white', textStyle: {color: 'white', fontName: 'Lucida Sans Unicode'}},
+                      'vAxis': {textStyle: {color:'white', fontName: 'Lucida Sans Unicode'}},
+                      legend:'none'
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var wjerMonthsChart = new google.visualization.BarChart(document.getElementById('wjerMonthsChart_div'));
+        wjerMonthsChart.draw(data, options);
+      }
+
+      function drawwjerCausesChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Accident', 1],
+          ['Accusation Lougawou', 7],
+          ['Conflit Arme', 3],
+          ['Conflit Banditisme', 1],
+          ['Conflit Conjugale', 1],
+          ['Inconnu', 3],
+          ['Conflit Interpersonel', 3],
+          ['Justice Expoeditive', 11],
+          ['Revenche', 2],
+          ['Vol', 8]
+        ]);
+
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                titleTextStyle: { color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10},
+                backgroundColor: 'black',
+                        'width':400,
+                        'height':300,
+                      'legend':{ textStyle :{ 
+                        color: 'white',
+              fontName: 'Lucida Sans Unicode',
+              fontSize: 10,
+              }}
+            };
+
+        // Instantiate and draw our chart, passing in some options.
+        var wjerCausesChart = new google.visualization.PieChart(document.getElementById('wjerCausesChart_div'));
+        wjerCausesChart.draw(data, options);
+      }
+
+      function drawwjerWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Arme Blanche', 8],
+          ['Lapidation', 3],
+          ['Par Balle', 17],
+          ['Par Balle et Arme Blanche', 12]
+        ]);
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var wjerWeaponsChart = new google.visualization.PieChart(document.getElementById('wjerWeaponsChart_div'));
+        wjerWeaponsChart.draw(data, options);
+      }
+    </script>
+
+
+
+
+ </head>
+
+<body>
+
+	<!--Navigation Bar-->
+	<div id="navigation">
+		<a href="about.html">ABOUT</a>
+		
+		<a href="historical.html">HISTORICAL DATA</a>
+
+		<a href="hm.html">REPORT A CRIME</a>
+		
+		<div id="subnavigation">
+		<ul>
+			<li class='active'><a href="historical.html"><span>DATA BY TERRITORY</span></a></li>
+			<li class='has-sub'><a href="#"><span>DATA BY MONTH</span></a>
+				<ul>
+					<li><a href="december2013.html"><span>December 2013</span></a></li>
+					<li><a href="november2013.html"><span>November 2013</span></a></li>
+					<li><a href="october2013.html"><span>October 2013</span></a></li>
+					<li><a href="september2013.html"><span>September 2013</span></a></li>
+					<li><a href="august2013.html"><span>August 2013</span></a></li>
+					<li><a href="july2013.html"><span>July 2013</span></a></li>
+					<li><a href="june2013.html"><span>June 2013</span></a></li>
+					<li><a href="may2013.html"><span>May 2013</span></a></li>
+					<li><a href="april2013.html"><span>April 2013</span></a></li>
+					<li><a href="march2013.html"><span>March 2013</span></a></li>
+					<li><a href="february2013.html"><span>February 2013</span></a></li>
+					<li><a href="january2013.html"><span>January 2013</span></a></li>
+
+				</ul>
+			</li>
+		</ul>
+		</div>
+			
+	</div>
+
+	
+
+	<div id="content">
+
+			<div id="title" class="pad">
+				<h1>Historical Data</h1>
+				<h2 id="result">  </h2>
+				
+			</div>
+
+			
+
+			<!--Put the chart in the sidebar-->
+
+			<div id="belAirMonthsChart_div"></div>
+			<div id="belAirCausesChart_div"></div>
+			<div id="belAirWeaponsChart_div"></div>
+
+			<div id='delmasMonthsChart_div'></div>
+			<div id='delmasCausesChart_div'></div>
+      <div id='delmasWeaponsChart_div'></div>
+
+      <div id='fnMonthsChart_div'></div>
+      <div id='fnCausesChart_div'></div>
+      <div id='fnWeaponsChart_div'></div>
+
+      <div id='flsMonthsChart_div'></div>
+      <div id='flsCausesChart_div'></div>
+      <div id='flsWeaponsChart_div'></div>
+
+      <div id='solinoMonthsChart_div'></div>
+      <div id='solinoCausesChart_div'></div>
+      <div id='solinoWeaponsChart_div'></div>
+
+      <div id='stMartinMonthsChart_div'></div>
+      <div id='stMartinCausesChart_div'></div>
+      <div id='stMartinWeaponsChart_div'></div>
+
+      <div id='wjerMonthsChart_div'></div>
+      <div id='wjerCausesChart_div'></div>
+      <div id='wjerWeaponsChart_div'></div>
+
+
+
+
+	</div>
+
+	<!--Map-->
+	<div id="map" style="width: 100%; height: 1100px"></div>
+
+	
+
+	<script type = "text/javascript">
+
+		//initialize a map and set it to the correct zoom
+		var map = L.map('map', {zoomControl: false}).setView([18.559, -72.333], 15);
+
+		//get the tiles from the HaitiMap project from Mapbox
+		L.tileLayer('https://{s}.tiles.mapbox.com/v3/haitimap.i22979g9/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a> ' + 'Limit zòn yo se apwoksimatif.',
+			id: 'haitimap.i22979g9'
+		}).addTo(map);
+
+
+		//put the zoom bar in the bottom left corner
+		map.addControl( L.control.zoom({position: 'bottomleft'}) );
+
+		function popupFeature(feature) {
+			
+			return getName(feature.properties.title)
+		}
+
+		function getName(territory) {
+				return territory == "Fort National" ? 'Fort National' :
+		           territory == "Bel Air"  ? 'Bel Air' :
+		           territory == "St. Martin"  ? 'St. Martin' :
+		           territory == "Solino"  ? 'Solino' :
+		           territory == "Foutouron La Saline"   ? "Foutouron La Saline" :
+		           territory == "Delmas 2-4"   ? 'Delmas 2-4' :
+		           territory == "Warf Jeremie"   ? "Warf Jeremie" :
+		           territory == "P.R."   ? "Pont Rouge" :
+		                      "Fort Dimanche";
+		}
+
+		//boilerplate style code for the features
+		function style(feature) {
+		    return {
+		        fillColor: getColor(feature.properties.title),
+		        color: getColor(feature.properties.title),
+		        weight: 4,
+		        fillOpacity: 0.3
+		    };
+		}
+
+		//how to determing color of the territory by the territory's name
+		function getColor(territory) {
+		    return 	territory == "Bel Air"  ? '#2171b5' :
+		    		    territory == "Fort National" ? '#4292c6' :
+		           	territory == "Solino"  ? '#6baed6' :
+		           	territory == "St. Martin"  ? '#3182bd' :
+		           	territory == "Foutouron La Saline"   ? "#08519c" :
+		           	territory == "Delmas 2-4"   ? '#fdbe85' :
+		                      '#74c476';
+		}
+
+		//what happeds when highlighting neighborhood		
+		function highlightFeature(e) {
+			var layer = e.target;
+
+			layer.setStyle({
+				weight: 5,
+				color: '#666',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+
+			if (!L.Browser.ie && !L.Browser.opera) {
+				layer.bringToFront();
+			}
+
+		}
+
+		//when we need to reset the territory back 
+		//to its original style
+		function resetHighlight(e) {
+			gjlayer.resetStyle(e.target);
+		}
+
+		function initializeHelper(territory) {
+			return 	territory == "Bel Air"  ? belAirInitialize() :
+					      territory == "Delmas 2-4" ? delmasInitialize() :
+		    		    territory == "Fort National" ? fnInitialize(): 
+		           	territory == "Solino"  ? solinoInitialize() :
+		           	territory == "St. Martin"  ? stMartinInitialize() :
+		           	territory == "Foutouron La Saline"   ? flsInitialize() :
+		                      wjerInitialize();
+		}
+
+		//code that gets called/applied to each geoJson feature
+		function onEachFeature(feature, layer) {
+			//layer.bindPopup(feature.properties.popupContent);
+
+			layer.on({
+				mouseover: highlightFeature, 
+				mouseout: resetHighlight,
+			});
+/*
+      layer.on('mouseover', function(e){
+        highlightFeature(e);
+        var popup = L.popup()
+          .setLatLng(e.latlng)
+          .setContent(feature.properties.title)
+          .openOn(map);
+      });
+*/
+      layer.on('click', function(e){
+        $("#belAirMonthsChart_div").html("");
+        $("#belAirCausesChart_div").html("");
+        $("#belAirWeaponsChart_div").html("");
+
+        $('#delmasMonthsChart_div').html("");
+        $('#delmasCausesChart_div').html("");
+        $('#delmasWeaponsChart_div').html("");
+
+        $('#fnMonthsChart_div').html("");
+        $('#fnCausesChart_div').html("");
+        $('#fnWeaponsChart_div').html("");
+
+        $('#flsMonthsChart_div').html("");
+        $('#flsCausesChart_div').html("");
+        $('#flsWeaponsChart_div').html("");
+
+        $('#solinoMonthsChart_div').html("");
+        $('#solinoCausesChart_div').html("");
+        $('#solinoWeaponsChart_div').html("");
+
+        $('#stMartinMonthsChart_div').html("");
+        $('#stMartinCausesChart_div').html("");
+        $('#stMartinWeaponsChart_div').html("");
+
+        $('#wjerMonthsChart_div').html("");
+        $('#wjerCausesChart_div').html("");
+        $('#wjerWeaponsChart_div').html("");
+
+        initializeHelper(feature.properties.title);
+        $("#result").html(feature.properties.title);
+        
+      });
+		}
+
+		//reading in the feature collection file 
+		//then setting up each feature by calling style 
+		//and onEachFeature
+		var gjlayer = L.geoJson(gjFeatureCollection, {
+			style: style,
+			onEachFeature: onEachFeature
+		}).addTo(map);
+
+
+
+		
+
+		 </script>
+
+ 	</body>
+
+ </html>
