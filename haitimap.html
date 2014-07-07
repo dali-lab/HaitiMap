@@ -1,25 +1,198 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title>HaitiMap </title>
+<title>Historical</title>
+ 
+<!--Leaflet imports-->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+<!--link to jquery-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
-</style>
-</head>
+<!--link to Leaflet point-in-polygon-->
+<script src="leaflet-pip.min.js"></script>
+
+
+ <!-- loading in css -->
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+ <!-- loading in the markers geojson layers -->
+<script type = "text/javascript" src="markers.js"></script>
+
+<!--load in parse-->
+<script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+ </head>
+
 <body>
-<div id='map'></div>
-<iframe width='100%' height='500px' frameBorder='0' src='http://a.tiles.mapbox.com/v3/haitimap.i22979g9/attribution,zoompan,zoomwheel,geocoder,share.html'></iframe>
 
-<script>
-var map = L.mapbox.map('map', 'haitimap.i22979g9')
-    .setView([18.558, -72.338], 15);
-</script>
-</body>
-</html>
+	<!--Navigation Bar-->
+	<div id="navigation">
+		<a href="about.html">ABOUT</a>
+		
+		<a href="historical.html">HISTORICAL DATA</a>
+
+		<a href="haitimap.html">REPORT A CRIME</a>
+		
+		<div id="subnavigation">
+		<ul>
+			<li class='active'><a href="historical.html"><span>DATA BY TERRITORY</span></a></li>
+			<li class='has-sub'><a href="#"><span>DATA BY MONTH</span></a>
+				<ul>
+					<li><a href="december2013.html"><span>December 2013</span></a></li>
+					<li><a href="november2013.html"><span>November 2013</span></a></li>
+					<li><a href="october2013.html"><span>October 2013</span></a></li>
+					<li><a href="september2013.html"><span>September 2013</span></a></li>
+					<li><a href="august2013.html"><span>August 2013</span></a></li>
+					<li><a href="july2013.html"><span>July 2013</span></a></li>
+					<li><a href="june2013.html"><span>June 2013</span></a></li>
+					<li><a href="may2013.html"><span>May 2013</span></a></li>
+					<li><a href="april2013.html"><span>April 2013</span></a></li>
+					<li><a href="march2013.html"><span>March 2013</span></a></li>
+					<li><a href="february2013.html"><span>February 2013</span></a></li>
+					<li><a href="january2013.html"><span>January 2013</span></a></li>
+
+				</ul>
+			</li>
+		</ul>
+		</div>
+			
+	</div>
+
+	
+
+	<div id="content">
+
+		<div id="title" class="pad">
+			<h1>Report a Crime</h1>
+			<h2 id="result">  </h2>
+			
+		</div>
+
+	</div>
+
+	<!--Map-->
+	<div id="map" style="width: 100%; height: 1100px"></div>
+
+	
+
+	<script type = "text/javascript">
+
+		//initialize Parse
+		Parse.initialize("LrUcm40fmRNLN3M6EsYLdcBs8wlvK9RmFHJ7TMbU", "nFnBqCQ7OHqAPEp8bzBE0jqIyVLsvQDzak5qspjB");
+
+
+		//initialize a map and set it to the correct zoom
+		var map = L.map('map', {zoomControl: false}).setView([18.559, -72.333], 15);
+
+		//get the tiles from the HaitiMap project from Mapbox
+		L.tileLayer('https://{s}.tiles.mapbox.com/v3/haitimap.i22979g9/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a> ' + 'Limit zòn yo se apwoksimatif.',
+			id: 'haitimap.i22979g9'
+		}).addTo(map);
+
+
+		//put the zoom bar in the bottom left corner
+		map.addControl( L.control.zoom({position: 'bottomleft'}) );
+
+		map.on('click', function(e){
+			var marker = new L.marker(e.latlng).addTo(map);
+			marker.bindPopup(setPopupContent()).openPopup();
+		});
+
+		function 
+		
+
+		function getName(territory) {
+				return territory == "Fort National" ? 'Fort National' :
+		           territory == "Bel Air"  ? 'Bel Air' :
+		           territory == "St. Martin"  ? 'St. Martin' :
+		           territory == "Solino"  ? 'Solino' :
+		           territory == "Foutouron La Saline"   ? "Foutouron La Saline" :
+		           territory == "Delmas 2-4"   ? 'Delmas 2-4' :
+		           territory == "Warf Jeremie"   ? "Warf Jeremie" :
+		           territory == "P.R."   ? "Pont Rouge" :
+		                      "Fort Dimanche";
+		}
+
+		//boilerplate style code for the features
+		function style(feature) {
+		    return {
+		    	clickable: false,
+		        fillColor: getColor(feature.properties.title),
+		        color: getColor(feature.properties.title),
+		        weight: 4,
+		        fillOpacity: 0.3
+		    };
+		}
+
+		//how to determing color of the territory by the territory's name
+		function getColor(territory) {
+		    return 	territory == "Bel Air"  ? '#2171b5' :
+		    		    territory == "Fort National" ? '#4292c6' :
+		           	territory == "Solino"  ? '#6baed6' :
+		           	territory == "St. Martin"  ? '#3182bd' :
+		           	territory == "Foutouron La Saline"   ? "#08519c" :
+		           	territory == "Delmas 2-4"   ? '#fdbe85' :
+		                      '#74c476';
+		}
+
+		//what happeds when highlighting neighborhood		
+		function highlightFeature(e) {
+			var layer = e.target;
+
+			layer.setStyle({
+				
+				weight: 5,
+				color: '#666',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+
+			if (!L.Browser.ie && !L.Browser.opera) {
+				layer.bringToFront();
+			}
+
+		}
+
+		//when we need to reset the territory back 
+		//to its original style
+		function resetHighlight(e) {
+			gjlayer.resetStyle(e.target);
+		}
+
+		
+		//code that gets called/applied to each geoJson feature
+		function onEachFeature(feature, layer) {
+
+	      layer.on('mouseover', function(e){
+	        //highlightFeature(e);
+	        var popup = L.popup()
+	          .setLatLng(e.latlng)
+	          .setContent(feature.properties.title)
+	          .openOn(map);
+	      });
+
+      
+		}
+
+		//reading in the feature collection file 
+		//then setting up each feature by calling style 
+		//and onEachFeature
+		var gjlayer = L.geoJson(gjFeatureCollection, {
+			style: style,
+			onEachFeature: onEachFeature
+		}).addTo(map);
+
+
+
+		
+
+		 </script>
+
+ 	</body>
+
+ </html>
