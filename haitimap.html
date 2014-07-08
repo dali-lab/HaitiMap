@@ -80,7 +80,7 @@
 	<script type = "text/javascript">
 
 		//initialize Parse
-		//Parse.initialize("LrUcm40fmRNLN3M6EsYLdcBs8wlvK9RmFHJ7TMbU", "nFnBqCQ7OHqAPEp8bzBE0jqIyVLsvQDzak5qspjB");
+		Parse.initialize("LrUcm40fmRNLN3M6EsYLdcBs8wlvK9RmFHJ7TMbU", "nFnBqCQ7OHqAPEp8bzBE0jqIyVLsvQDzak5qspjB");
 
 
 		//initialize a map and set it to the correct zoom
@@ -103,6 +103,8 @@
 			var marker = new L.marker(e.latlng).addTo(map);
 			
 			var popupContent = 
+						'<h1> Report a Crime </h1>'+
+
 						'<label for="ki_zon" class="left">Ki Zon</label>' +
 						'<select name="ki_zon" id="crime_zone">' +
 							'<option value="Ki Zon">Ki Zon</option>' +
@@ -117,6 +119,7 @@
 						'<br>' +
 
 						'<label for="ki_sa_k_te_pase" class="left">Ki sa k te pase</label>' +
+						'<br>' +
 						'<select name="ki_sa_k_te_pase" id="crime_type">' +
 							'<option value="Konfli Baz">Konfli Baz</option>' +
 							'<option value="Konfli Politik">Konfli Politik</option>' +
@@ -129,6 +132,7 @@
 						'<br>' +
 
 						'<label for="ak_ki_zam" class="left">Ak ki zam</label>' +
+						'<br>' +
 						'<select name="ak_ki_zam" id="weapon">' +
 							'<option value="Bal">Bal</option>' +
 							'<option value="Kouto">Kouto</option>' +
@@ -140,6 +144,7 @@
 
 
 						'<label for="sex_of_viktim" class="left">Viktim: Sex</label>' +
+						'<br>' +
 						'<select name="sex_of_viktim" id="victims_gender">' +
 							'<option value="female">F</option>' +
 							'<option value="male">G</option>' +
@@ -149,6 +154,7 @@
 
 
 						'<label for="age_of_viktim" class="left">Viktim: Laj</label>' +
+						'<br>' +
 						'<select name="age_of_viktim" id="victims_age">' +
 							'<option value="Ti Moun">Ti Moun</option>' +
 							'<option value="Jèn">Jèn</option>' +
@@ -159,6 +165,7 @@
 
 
 						'<label for="sex_of_sispek" class="left">Sispeck: Sex</label>' +
+						'<br>' +
 						'<select name="sex_of_sispek" id="suspects_gender">' +
 							'<option value="female">F</option>' +
 							'<option value="male">G</option>' +
@@ -167,6 +174,7 @@
 						'<br>' +
 
 						'<label for="age_of_sispek" class="left">Sispeck: Laj</label>' +
+						'<br>' +
 						'<select name="age_of_sispek" id="suspects_age">' +
 							'<option value="Ti Moun">Ti Moun</option>' +
 							'<option value="Jèn">Jèn</option>' +
@@ -176,31 +184,54 @@
 						'<br>' +
 
 						'<label for="ki_lè" class="left">Ki Le</label>' +
+						'<br>' +
 						'<select name="ki_lè" id="when">' +
 							'<option value="Jounen">Jounen</option>' +
 							'<option value="Leswa">Leswa</option>' +
 							'<option value="Nwi">Nwi</option>' +
-						'</select>'
+						'</select>' +
+
+						'<br>'+
+						'<button type="save">Save</button>'+
+						'<button type="cancel">Cancel</button>';
 
 			marker.bindPopup(popupContent).openPopup();
 					
 
 		});
+		$(function() {
+			$('#save').click(function(event){
 
+				//initialize the object
+				var CrimeReport = Parse.Object.extend("CrimeReport");
+				var crimeReport = new CrimeReport();
+				
+				//get the selection from the drop down menus
+				crimeReport.set("ki_zon", $('#crime_zone').val());
+				crimeReport.set("ki_sa_k_te_pase", $('#crime_type').val());
+				crimeReport.set("ak_ki_zam", $('#weapon').val());
+				crimeReport.set("sex_of_viktim", $('#victims_gender').val());
+				crimeReport.set("age_of_viktim", $('#victims_age').val());
+				crimeReport.set("sex_of_sispek", $('#suspects_gender').val());
+				crimeReport.set("age_of_sispek", $('#suspects_age').val());
+				crimeReport.set("ki_lè", $('#when').val());
 
-		
+				//save the object
+				crimeReport.save(null, {
+				  success: function(crimeReport) {
+				    // Execute any logic that should take place after the object is saved.
+				    alert('New object created with objectId: ' + crimeReport.id);
+				  },
+				  error: function(crimeReport, error) {
+				    // Execute any logic that should take place if the save fails.
+				    // error is a Parse.Error with an error code and description.
+				    alert('Failed to create new object, with error code: ' + error.message);
+				  }
 
-		function getName(territory) {
-				return territory == "Fort National" ? 'Fort National' :
-		           territory == "Bel Air"  ? 'Bel Air' :
-		           territory == "St. Martin"  ? 'St. Martin' :
-		           territory == "Solino"  ? 'Solino' :
-		           territory == "Foutouron La Saline"   ? "Foutouron La Saline" :
-		           territory == "Delmas 2-4"   ? 'Delmas 2-4' :
-		           territory == "Warf Jeremie"   ? "Warf Jeremie" :
-		           territory == "P.R."   ? "Pont Rouge" :
-		                      "Fort Dimanche";
-		}
+				);
+			});
+		})
+
 
 		//boilerplate style code for the features
 		function style(feature) {
@@ -216,7 +247,7 @@
 		//how to determing color of the territory by the territory's name
 		function getColor(territory) {
 		    return 	territory == "Bel Air"  ? '#2171b5' :
-		    		    territory == "Fort National" ? '#4292c6' :
+		    		territory == "Fort National" ? '#4292c6' :
 		           	territory == "Solino"  ? '#6baed6' :
 		           	territory == "St. Martin"  ? '#3182bd' :
 		           	territory == "Foutouron La Saline"   ? "#08519c" :
@@ -270,12 +301,8 @@
 			style: style,
 			onEachFeature: onEachFeature
 		}).addTo(map);
-
-
-
 		
-
-		 </script>
+		</script>
 
  	</body>
 
