@@ -26,6 +26,7 @@
       google.setOnLoadCallback(drawTotalsChart);
       google.setOnLoadCallback(drawDaysChart);
       google.setOnLoadCallback(drawCausesChart);
+      google.setOnLoadCallback(drawWeaponsChart);
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
@@ -130,6 +131,31 @@
         var causesChart = new google.visualization.PieChart(document.getElementById('causesChart_div'));
         causesChart.draw(data, options);
       }
+
+      function drawWeaponsChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause');
+        data.addColumn('number', 'Murders');
+        data.addRows([
+          ['Par Balle', 11]
+
+        ]);
+        // Set chart options
+        var options = {title:'Cause of Crimes',
+                      titleTextStyle: { color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10},
+                      backgroundColor: 'black',
+                      'width':400,
+                      'height':300,
+                      'legend':{ textStyle :{ color: 'white', fontName: 'Lucida Sans Unicode', fontSize: 10}},
+                      pieHole: 0.4
+                    };
+
+        // Instantiate and draw our chart, passing in some options.
+        var WeaponsChart = new google.visualization.PieChart(document.getElementById('WeaponsChart_div'));
+        WeaponsChart.draw(data, options);
+      }
     </script>
 
 
@@ -181,7 +207,7 @@
 	<div id="content">
 		
 
-		<div id="sidebar">
+
 			<div id="slider">
 				
 				<a href="december2013.html" class="control_prev"> < </a>
@@ -194,26 +220,28 @@
 				
 				<!--Div that will hold the pie chart-->
     			<div id="totalsChart_div"></div>
-    			<br>
+
     			<div id="daysChart_div"></div>
-    			<br>
+
     			<div id="causesChart_div"></div>
+
+    			<div id="WeaponsChart_div"></div>
 				
 			</div>
 			
-		</div>
+
 
 	</div>
 
 	<!--Map-->
-	<div id="map" style="width: 100%; height: 1100px"></div>
+	<div id="map" style="width: 100%; height: 1350px"></div>
 
 	<script type = "text/javascript" src="markers.js"></script>
 
 	<script type = "text/javascript">
 
 		//initialize a map and set it to the correct zoom
-		var map = L.map('map', {zoomControl: false}).setView([18.559, -72.333], 15);
+		var map = L.map('map', {zoomControl: false}).setView([18.556, -72.330], 15);
 
 		//get the tiles from the HaitiMap project from Mapbox
 		L.tileLayer('https://{s}.tiles.mapbox.com/v3/haitimap.i22979g9/{z}/{x}/{y}.png', {
@@ -228,22 +256,7 @@
 		//put the zoom bar in the bottom left corner
 		map.addControl( L.control.zoom({position: 'bottomleft'}) );
 
-		function popupFeature(feature) {
-			
-			return getName(feature.properties.title)
-		}
 
-		function getName(territory) {
-				return territory == "Fort National" ? 'Fort National' :
-		           territory == "Bel Air"  ? 'Bel Air' :
-		           territory == "St. Martin"  ? 'St. Martin' :
-		           territory == "Solino"  ? 'Solino' :
-		           territory == "Foutouron La Saline"   ? "Foutouron La Saline" :
-		           territory == "Delmas 2-4"   ? 'Delmas 2-4' :
-		           territory == "Warf Jeremie"   ? "Warf Jeremie" :
-		           territory == "P.R."   ? "Pont Rouge" :
-		                      "Fort Dimanche";
-		}
 
 		//boilerplate style code for the features
 		function style(feature) {
@@ -266,44 +279,12 @@
 		                      '#74c476';
 		}
 
-		//what happeds when highlighting neighborhood		
-		function highlightFeature(e) {
-			var layer = e.target;
-
-			layer.setStyle({
-				weight: 5,
-				color: '#666',
-				dashArray: '',
-				fillOpacity: 0.7
-			});
-
-			if (!L.Browser.ie && !L.Browser.opera) {
-				layer.bringToFront();
-			}
-
-		}
-
-		//when we need to reset the territory back 
-		//to its original style
-		function resetHighlight(e) {
-			gjlayer.resetStyle(e.target);
-		}
-
-		//code that gets called/applied to each geoJson feature
-		function onEachFeature(feature, layer) {
-
-			layer.on({
-				mouseover: popupFeature, 
-				mouseout: resetHighlight
-			});
-		}
 
 		//reading in the feature collection file 
 		//then setting up each feature by calling style 
 		//and onEachFeature
 		var gjlayer = L.geoJson(gjFeatureCollection, {
-			style: style,
-			onEachFeature: onEachFeature
+			style: style
 		}).addTo(map);
 
 		
