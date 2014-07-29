@@ -1,1 +1,1 @@
-An interactive map to visualize historical crime data in Port-au-Prince, Haiti, and to record contemporary crime data
+An interactive map to visualize historical crime data in Port-au-Prince, Haiti. Click on the 'Klike pou rapòte yon krim' section to report a crime by clicking on the map and providing the details of the nature of the crime. Visit the 'Enfomasyon Istorik' to view crime statistics for the year of 2013, broken down by both Base and Month.
