@@ -1,180 +1,180 @@
--
- -
- -/* Borrowed Heavily from Mapbox Locator */
- -
- -#navigation {
- -	position: fixed;
- -	top: 0;
- -	width: 100%;
- -	color: #444;
- -	height: 50px;
- -	text-align: left;
- -	padding-top: 15px;
- -	/* Adds shadow to the bottom of the bar */
- -	-webkit-box-shadow: 0px 0px 8px 0px #000000;
- -	-moz-box-shadow: 0px 0px 8px 0px #000000;
- -	box-shadow: 0px 0px 8px 0px #000000;
- -	/* Adds the transparent background */
- -	background-color: rgba(1, 1, 1, 0.8);
- -	color: rgba(1, 1, 1, 0.8);
- -	z-index: 99;
- -}
- -
- -#navigation a {
- -	font-family: 'Lucida Grande', sans-serif;
- -	font-weight: 600;
- -/*	font-size: 14px;*/
- -	padding-left: 15px;
- -	padding-right: 15px;
- -	color: white;
- -	text-decoration: none;
- -}
- -
- -#navigation a:hover {
- -	color: grey;
- -} 
- -
- -#content {
- -	position: absolute;
- -	top: 0;
- -	right: 0px;
- -	bottom: 0px;
- -	/*padding: 0;*/
- -	width: 400px;
- -	background: black;
- -	
- -	z-index: 100;
- -}
- -
- -#content h1, h2 {
- -	font-family: 'Open Sans Condensed', sans-serif;
- -	font-weight: 600;
- -	color: white;
- -	text-align: center;
- -}
- -
- -/*From the lovely people at CSSMenuMaker.com*/
- -#subnavigation   {
- -  border: none;
- -  border: 0px;
- -  margin: 0px;
- -  padding: 0px;
- -  font: 67.5% 'Lucida Sans Unicode', 'Bitstream Vera Sans', 'Trebuchet Unicode MS', 'Lucida Grande', Verdana, Helvetica, sans-serif;
- -  font-size: 14px;
- -  font-weight: bold;
- -  width: auto;
- -}
- -#subnavigation   ul {
- -  height: 35px;
- -  list-style: none;
- -  margin: 0;
- -  padding: 0;
- -}
- -#subnavigation   li {
- -  float: left;
- -  padding: 0px;
- -}
- -#subnavigation   li a {
- -
- -  display: block;
- -  font-weight: normal;
- -  line-height: 35px;
- -  margin: 0px;
- -  padding: 0px 25px;
- -  text-align: center;
- -  text-decoration: none;
- -}
- -#subnavigation   > ul > li > a {
- -  color: white;
- -}
- -#subnavigation   ul ul a {
- -  color: white;
- -}
- -#subnavigation   li > a:hover,
- -#subnavigation   ul li:hover > a {
- -  background: #2580a2 url('hover.png') bottom center no-repeat;
- -  color: #FFFFFF;
- -  text-decoration: none;
- -}
- -#subnavigation   li ul {
- -  background: #333333;
- -  display: none;
- -  height: auto;
- -  padding: 0px;
- -  margin: 0px;
- -  border: 0px;
- -  position: absolute;
- -  width: 225px;
- -  z-index: 200;
- -  /*top:1em;
- -	/*left:0;*/
- -
- -}
- -#subnavigation   li:hover ul {
- -  display: block;
- -}
- -#subnavigation   li li {
- -  background: url('sub_sep.gif') bottom left no-repeat;
- -  display: block;
- -  float: none;
- -  margin: 0px;
- -  padding: 0px;
- -  width: 225px;
- -}
- -#subnavigation   li:hover li a {
- -  background: none;
- -}
- -#subnavigation   li ul a {
- -  display: block;
- -  height: 35px;
- -  font-size: 12px;
- -  font-style: normal;
- -  margin: 0px;
- -  padding: 0px 10px 0px 15px;
- -  text-align: left;
- -}
- -#subnavigation   li ul a:hover,
- -#subnavigation   li ul li:hover > a {
- -  background: #2580a2 url('hover_sub.png') center left no-repeat;
- -  border: 0px;
- -  color: #ffffff;
- -  text-decoration: none;
- -}
- -#subnavigation   p {
- -  clear: left;
- -}
- -
- -/*Taken from the lovely Codepen Simple Slider tutorial*/
- -#slider {
- -  position: relative;
- -  /*overflow: hidden;*/
- -  margin: 20px auto 0 auto;
- -  border-radius: 4px;
- -}
- -
- -a.control_prev, a.control_next {
- -  position: absolute;
- -  /*top: 40%;*/
- -  z-index: 999;
- -  display: block;
- -  padding: 4% 3%;
- -  width: auto;
- -  height: auto;
- -  background: white;
- -  color: black;
- -  text-decoration: none;
- -  font-weight: 600;
- -  font-size: 18px;
- -  opacity: 0.8;
- -  cursor: pointer;
- -}
- -
- -a.control_prev {
- -  border-radius: 0 2px 2px 0;
- -}
- -
- -a.control_next {
- -  right: 0;
- -  border-radius: 2px 0 0 2px;
- -}
- -
+
+
+/* Borrowed Heavily from Mapbox Locator */
+
+#navigation {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	color: #444;
+	height: 50px;
+	text-align: left;
+	padding-top: 15px;
+	/* Adds shadow to the bottom of the bar */
+	-webkit-box-shadow: 0px 0px 8px 0px #000000;
+	-moz-box-shadow: 0px 0px 8px 0px #000000;
+	box-shadow: 0px 0px 8px 0px #000000;
+	/* Adds the transparent background */
+	background-color: rgba(1, 1, 1, 0.8);
+	color: rgba(1, 1, 1, 0.8);
+	z-index: 99;
+ }
+ 
+ #navigation a {
+ 	font-family: 'Lucida Grande', sans-serif;
+ 	font-weight: 600;
+ /*	font-size: 14px;*/
+ 	padding-left: 15px;
+ 	padding-right: 15px;
+ 	color: white;
+ 	text-decoration: none;
+ }
+ 
+ #navigation a:hover {
+ 	color: grey;
+ } 
+ 
+ #content {
+ 	position: absolute;
+ 	top: 0;
+ 	right: 0px;
+ 	bottom: 0px;
+  /*padding: 0;*/
+ 	width: 400px;
+ 	background: black;
+ 	
+ 	z-index: 100;
+ }
+ 
+ #content h1, h2 {
+ 	font-family: 'Open Sans Condensed', sans-serif;
+ 	font-weight: 600;
+ 	color: white;
+ 	text-align: center;
+ }
+ 
+ /*From the lovely people at CSSMenuMaker.com*/
+ #subnavigation   {
+   border: none;
+   border: 0px;
+   margin: 0px;
+   padding: 0px;
+   font: 67.5% 'Lucida Sans Unicode', 'Bitstream Vera Sans', 'Trebuchet Unicode MS', 'Lucida Grande', Verdana, Helvetica, sans-serif;
+   font-size: 14px;
+   font-weight: bold;
+   width: auto;
+ }
+ #subnavigation   ul {
+   height: 35px;
+   list-style: none;
+   margin: 0;
+   padding: 0;
+ }
+ #subnavigation   li {
+   float: left;
+   padding: 0px;
+ }
+ #subnavigation   li a {
+ 
+   display: block;
+   font-weight: normal;
+   line-height: 35px;
+   margin: 0px;
+   padding: 0px 25px;
+   text-align: center;
+   text-decoration: none;
+ }
+ #subnavigation   > ul > li > a {
+   color: white;
+ }
+ #subnavigation   ul ul a {
+   color: white;
+ }
+ #subnavigation   li > a:hover,
+ #subnavigation   ul li:hover > a {
+   background: #2580a2 url('hover.png') bottom center no-repeat;
+   color: #FFFFFF;
+   text-decoration: none;
+ }
+ #subnavigation   li ul {
+   background: #333333;
+   display: none;
+   height: auto;
+   padding: 0px;
+   margin: 0px;
+   border: 0px;
+   position: absolute;
+   width: 225px;
+   z-index: 200;
+   /*top:1em;
+  	/*left:0;*/
+ 
+ }
+ #subnavigation   li:hover ul {
+   display: block;
+ }
+ #subnavigation   li li {
+   background: url('sub_sep.gif') bottom left no-repeat;
+   display: block;
+   float: none;
+   margin: 0px;
+   padding: 0px;
+   width: 225px;
+  }
+  #subnavigation   li:hover li a {
+    background: none;
+  }
+  #subnavigation   li ul a {
+    display: block;
+    height: 35px;
+    font-size: 12px;
+    font-style: normal;
+    margin: 0px;
+    padding: 0px 10px 0px 15px;
+    text-align: left;
+  }
+  #subnavigation   li ul a:hover,
+  #subnavigation   li ul li:hover > a {
+    background: #2580a2 url('hover_sub.png') center left no-repeat;
+    border: 0px;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  #subnavigation   p {
+    clear: left;
+  }
+  
+  /*Taken from the lovely Codepen Simple Slider tutorial*/
+  #slider {
+    position: relative;
+    /*overflow: hidden;*/
+    margin: 20px auto 0 auto;
+    border-radius: 4px;
+  }
+  
+  a.control_prev, a.control_next {
+    position: absolute;
+     /*top: 40%;*/
+     z-index: 999;
+     display: block;
+     padding: 4% 3%;
+     width: auto;
+     height: auto;
+     background: white;
+     color: black;
+     text-decoration: none;
+     font-weight: 600;
+    font-size: 18px;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  a.control_prev {
+    border-radius: 0 2px 2px 0;
+  }
+  
+  a.control_next {
+    right: 0;
+    border-radius: 2px 0 0 2px;
+  }
+  

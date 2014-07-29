@@ -1,272 +1,272 @@
--<!DOCTYPE html>
- -<html>
- -<head>
- -<title>Historical</title>
- - 
- -<!--Leaflet imports-->
- -<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
- -<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
- -
- -<!--link to jquery-->
- -<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
- -
- -<!--link to Leaflet point-in-polygon-->
- -<script src="leaflet-pip.min.js"></script>
- -
- -
- - <!-- loading in css -->
- -<link rel="stylesheet" href="style.css" type="text/css" />
- -
- - <!-- loading in the markers geojson layers -->
- -<script type = "text/javascript" src="markers.js"></script>
- -
- -<!--load in parse-->
- -<script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
- -
- - </head>
- -
- -<body>
- -
- -	<!--Navigation Bar-->
- -	<div id="navigation">
- -		<a href="about.html">OSIJE</a>
- -		
- -		<a href="historical.html">ENFORMASYON ISTORIK</a>
- -
- -		<a href="hm.html">RAPOTE YON KRIM</a>
- -		
- -			
- -	</div>
- -
- -	
- -
- -	<div id="content">
- -
- -		<div id="title" class="pad">
- -			<h1>RAPOTE YON KRIM</h1>
- -			<h2>Klike pou rapòte yon krim</h2>
- -			
- -		</div>
- -
- -	</div>
- -
- -	<!--Map-->
- -	<div id="map" style="width: 100%; height: 1100px"></div>
- -
- -	
- -
- -	<script type = "text/javascript">
- -
- -		//initialize Parse
- -		Parse.initialize("LrUcm40fmRNLN3M6EsYLdcBs8wlvK9RmFHJ7TMbU", "nFnBqCQ7OHqAPEp8bzBE0jqIyVLsvQDzak5qspjB");
- -
- -
- -		//initialize a map and set it to the correct zoom
- -		var map = L.map('map', {zoomControl: false}).setView([18.559, -72.333], 15);
- -
- -		//get the tiles from the HaitiMap project from Mapbox
- -		L.tileLayer('https://{s}.tiles.mapbox.com/v3/haitimap.i22979g9/{z}/{x}/{y}.png', {
- -			maxZoom: 18,
- -			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
- -				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
- -				'Imagery © <a href="http://mapbox.com">Mapbox</a> ' + 'Limit zòn yo se apwoksimatif.',
- -			id: 'haitimap.i22979g9'
- -		}).addTo(map);
- -
- -
- -		//put the zoom bar in the bottom left corner
- -		map.addControl( L.control.zoom({position: 'bottomleft'}) );
- -
- -		map.on('click', function(e){
- -			var marker = new L.marker(e.latlng).addTo(map);
- -			
- -			var popupContent = 
- -						'<h1> Report a Crime </h1>'+
- -
- -						'<label for="ki_zon" class="left">Ki Zon</label>' +
- -						'<select name="ki_zon" id="crime_zone">' +
- -							'<option value="Ki Zon">Ki Zon</option>' +
- -							'<option value="Bel Air">Bel Air</option>' +
- -							'<option value="Delmas 2-4">Delmas 2-4</option>' +
- -							'<option value="Fort National and Corridor Bastia">Fort National and Corridor Bastia</option>' +
- -							'<option value="Fort Touron and La Saline">Fort Touron and La Saline</option>' +
- -							'<option value="Solino">Solino</option>' +
- -							'<option value="Wharf Jememie, Fort Dimanche, Pont Rouge">Wharf Jememie, Fort Dimanche, Pont Rouge</option>' +
- -						'</select>' +
- -						
- -						'<br>' +
- -
- -						'<label for="ki_sa_k_te_pase" class="left">Ki sa k te pase</label>' +
- -						'<br>' +
- -						'<select name="ki_sa_k_te_pase" id="crime_type">' +
- -							'<option value="Konfli Baz">Konfli Baz</option>' +
- -							'<option value="Konfli Politik">Konfli Politik</option>' +
- -							'<option value="Konfli Domestik">Konfli Domestik</option>' +
- -							'<option value="Konfli ak Lapolis">Konfli ak Lapolis</option>' +
- -							'<option value="Revanj">Revanj</option>' +
- -							'<option value="Lòt Bagay">Lòt Bagay</option>' +
- -						'</select>' +
- -
- -						'<br>' +
- -
- -						'<label for="ak_ki_zam" class="left">Ak ki zam</label>' +
- -						'<br>' +
- -						'<select name="ak_ki_zam" id="weapon">' +
- -							'<option value="Bal">Bal</option>' +
- -							'<option value="Kouto">Kouto</option>' +
- -							'<option value="Fòs fizik">Fòs fizik</option>' +
- -							'<option value="Lòt bagay">Lòt bagay</option>' +
- -						'</select>' +
- -
- -						'<br>' +
- -
- -
- -						'<label for="sex_of_viktim" class="left">Viktim: Sex</label>' +
- -						'<br>' +
- -						'<select name="sex_of_viktim" id="victims_gender">' +
- -							'<option value="female">F</option>' +
- -							'<option value="male">G</option>' +
- -						'</select>' +
- -
- -						'<br>' +
- -
- -
- -						'<label for="age_of_viktim" class="left">Viktim: Laj</label>' +
- -						'<br>' +
- -						'<select name="age_of_viktim" id="victims_age">' +
- -							'<option value="Ti Moun">Ti Moun</option>' +
- -							'<option value="Jèn">Jèn</option>' +
- -							'<option value="Gran Moun">Gran Moun</option>' +
- -						'</select>'  +
- -
- -						'<br>' +
- -
- -
- -						'<label for="sex_of_sispek" class="left">Sispeck: Sex</label>' +
- -						'<br>' +
- -						'<select name="sex_of_sispek" id="suspects_gender">' +
- -							'<option value="female">F</option>' +
- -							'<option value="male">G</option>' +
- -						'</select>' +
- -
- -						'<br>' +
- -
- -						'<label for="age_of_sispek" class="left">Sispeck: Laj</label>' +
- -						'<br>' +
- -						'<select name="age_of_sispek" id="suspects_age">' +
- -							'<option value="Ti Moun">Ti Moun</option>' +
- -							'<option value="Jèn">Jèn</option>' +
- -							'<option value="Gran Moun">Gran Moun</option>' +
- -						'</select>' +
- -
- -						'<br>' +
- -
- -						'<label for="ki_lè" class="left">Ki Le</label>' +
- -						'<br>' +
- -						'<select name="ki_lè" id="when">' +
- -							'<option value="Jounen">Jounen</option>' +
- -							'<option value="Leswa">Leswa</option>' +
- -							'<option value="Nwi">Nwi</option>' +
- -						'</select>' +
- -
- -						'<br>'+
- -						'<button type="save" onClick="save();">Save</button>';
- -
- -			marker.bindPopup(popupContent).openPopup();
- -					
- -
- -		});
- -
- -			function save() {
- -
- -				//initialize the object
- -				var CrimeReport = Parse.Object.extend("CrimeReport");
- -				var crimeReport = new CrimeReport();
- -				
- -				//get the selection from the drop down menus
- -				crimeReport.set("ki_zon", $('#crime_zone').val());
- -				crimeReport.set("ki_sa_k_te_pase", $('#crime_type').val());
- -				crimeReport.set("ak_ki_zam", $('#weapon').val());
- -				crimeReport.set("sex_of_viktim", $('#victims_gender').val());
- -				crimeReport.set("age_of_viktim", $('#victims_age').val());
- -				crimeReport.set("sex_of_sispek", $('#suspects_gender').val());
- -				crimeReport.set("age_of_sispek", $('#suspects_age').val());
- -				crimeReport.set("ki_lè", $('#when').val());
- -
- -			}
- -
- -
- -		//boilerplate style code for the features
- -		function style(feature) {
- -		    return {
- -		    	clickable: false,
- -		        fillColor: getColor(feature.properties.title),
- -		        color: getColor(feature.properties.title),
- -		        weight: 4,
- -		        fillOpacity: 0.3
- -		    };
- -		}
- -
- -		//how to determing color of the territory by the territory's name
- -		function getColor(territory) {
- -		    return 	territory == "Bel Air"  ? '#2171b5' :
- -		    		territory == "Fort National" ? '#4292c6' :
- -		           	territory == "Solino"  ? '#6baed6' :
- -		           	territory == "St. Martin"  ? '#3182bd' :
- -		           	territory == "Foutouron La Saline"   ? "#08519c" :
- -		           	territory == "Delmas 2-4"   ? '#fdbe85' :
- -		                      '#74c476';
- -		}
- -
- -		//what happeds when highlighting neighborhood		
- -		function highlightFeature(e) {
- -			var layer = e.target;
- -
- -			layer.setStyle({
- -				
- -				weight: 5,
- -				color: '#666',
- -				dashArray: '',
- -				fillOpacity: 0.7
- -			});
- -
- -			if (!L.Browser.ie && !L.Browser.opera) {
- -				layer.bringToFront();
- -			}
- -
- -		}
- -
- -		//when we need to reset the territory back 
- -		//to its original style
- -		function resetHighlight(e) {
- -			gjlayer.resetStyle(e.target);
- -		}
- -
- -		
- -		//code that gets called/applied to each geoJson feature
- -		function onEachFeature(feature, layer) {
- -
- -	      layer.on('mouseover', function(e){
- -	        //highlightFeature(e);
- -	        var popup = L.popup()
- -	          .setLatLng(e.latlng)
- -	          .setContent(feature.properties.title)
- -	          .openOn(map);
- -	      });
- -
- -      
- -		}
- -
- -		//reading in the feature collection file 
- -		//then setting up each feature by calling style 
- -		//and onEachFeature
- -		var gjlayer = L.geoJson(gjFeatureCollection, {
- -			style: style,
- -			onEachFeature: onEachFeature
- -		}).addTo(map);
- -		
- -		</script>
- -
- - 	</body>
- -
- - </html>
+<!DOCTYPE html>
+ <html>
+ <head>
+ <title>Historical</title>
+  
+ <!--Leaflet imports-->
+ <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+ <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+ 
+ <!--link to jquery-->
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ 
+ <!--link to Leaflet point-in-polygon-->
+ <script src="leaflet-pip.min.js"></script>
+ 
+ 
+  <!-- loading in css -->
+ <link rel="stylesheet" href="style.css" type="text/css" />
+ 
+  <!-- loading in the markers geojson layers -->
+ <script type = "text/javascript" src="markers.js"></script>
+ 
+ <!--load in parse-->
+ <script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+ 
+  </head>
+ 
+ <body>
+ 
+ 	<!--Navigation Bar-->
+ 	<div id="navigation">
+ 		<a href="about.html">OSIJE</a>
+ 		
+ 		<a href="historical.html">ENFORMASYON ISTORIK</a>
+ 
+ 		<a href="hm.html">RAPOTE YON KRIM</a>
+ 		
+ 			
+ 	</div>
+ 
+ 	
+ 
+ 	<div id="content">
+ 
+ 		<div id="title" class="pad">
+ 			<h1>RAPOTE YON KRIM</h1>
+ 			<h2>Klike pou rapòte yon krim</h2>
+ 			
+ 		</div>
+ 
+ 	</div>
+ 
+ 	<!--Map-->
+ 	<div id="map" style="width: 100%; height: 1100px"></div>
+ 
+ 	
+ 
+ 	<script type = "text/javascript">
+ 
+ 		//initialize Parse
+ 		Parse.initialize("LrUcm40fmRNLN3M6EsYLdcBs8wlvK9RmFHJ7TMbU", "nFnBqCQ7OHqAPEp8bzBE0jqIyVLsvQDzak5qspjB");
+ 
+ 
+ 		//initialize a map and set it to the correct zoom
+ 		var map = L.map('map', {zoomControl: false}).setView([18.559, 72.333], 15);
+ 
+ 		//get the tiles from the HaitiMap project from Mapbox
+ 		L.tileLayer('https://{s}.tiles.mapbox.com/v3/haitimap.i22979g9/{z}/{x}/{y}.png', {
+ 			maxZoom: 18,
+ 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+ 				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+ 				'Imagery © <a href="http://mapbox.com">Mapbox</a> ' + 'Limit zòn yo se apwoksimatif.',
+ 			id: 'haitimap.i22979g9'
+ 		}).addTo(map);
+ 
+ 
+ 		//put the zoom bar in the bottom left corner
+ 		map.addControl( L.control.zoom({position: 'bottomleft'}) );
+ 
+ 		map.on('click', function(e){
+ 			var marker = new L.marker(e.latlng).addTo(map);
+ 			
+ 			var popupContent = 
+ 						'<h1> Report a Crime </h1>'+
+ 
+ 						'<label for="ki_zon" class="left">Ki Zon</label>' +
+ 						'<select name="ki_zon" id="crime_zone">' +
+ 							'<option value="Ki Zon">Ki Zon</option>' +
+ 							'<option value="Bel Air">Bel Air</option>' +
+ 							'<option value="Delmas 2-4">Delmas 2-4</option>' +
+ 							'<option value="Fort National and Corridor Bastia">Fort National and Corridor Bastia</option>' +
+ 							'<option value="Fort Touron and La Saline">Fort Touron and La Saline</option>' +
+ 							'<option value="Solino">Solino</option>' +
+ 							'<option value="Wharf Jememie, Fort Dimanche, Pont Rouge">Wharf Jememie, Fort Dimanche, Pont Rouge</option>' +
+ 						'</select>' +
+ 						
+ 						'<br>' +
+ 
+ 						'<label for="ki_sa_k_te_pase" class="left">Ki sa k te pase</label>' +
+ 						'<br>' +
+ 						'<select name="ki_sa_k_te_pase" id="crime_type">' +
+ 							'<option value="Konfli Baz">Konfli Baz</option>' +
+ 							'<option value="Konfli Politik">Konfli Politik</option>' +
+ 							'<option value="Konfli Domestik">Konfli Domestik</option>' +
+ 							'<option value="Konfli ak Lapolis">Konfli ak Lapolis</option>' +
+ 							'<option value="Revanj">Revanj</option>' +
+ 							'<option value="Lòt Bagay">Lòt Bagay</option>' +
+ 						'</select>' +
+ 
+ 						'<br>' +
+ 
+ 						'<label for="ak_ki_zam" class="left">Ak ki zam</label>' +
+ 						'<br>' +
+ 						'<select name="ak_ki_zam" id="weapon">' +
+ 							'<option value="Bal">Bal</option>' +
+ 							'<option value="Kouto">Kouto</option>' +
+ 							'<option value="Fòs fizik">Fòs fizik</option>' +
+ 							'<option value="Lòt bagay">Lòt bagay</option>' +
+ 						'</select>' +
+ 
+ 						'<br>' +
+ 
+ 
+ 						'<label for="sex_of_viktim" class="left">Viktim: Sex</label>' +
+ 						'<br>' +
+ 						'<select name="sex_of_viktim" id="victims_gender">' +
+ 							'<option value="female">F</option>' +
+ 							'<option value="male">G</option>' +
+ 						'</select>' +
+ 
+ 						'<br>' +
+ 
+ 
+ 						'<label for="age_of_viktim" class="left">Viktim: Laj</label>' +
+ 						'<br>' +
+ 						'<select name="age_of_viktim" id="victims_age">' +
+ 							'<option value="Ti Moun">Ti Moun</option>' +
+ 							'<option value="Jèn">Jèn</option>' +
+ 							'<option value="Gran Moun">Gran Moun</option>' +
+ 						'</select>'  +
+ 
+ 						'<br>' +
+ 
+ 
+ 						'<label for="sex_of_sispek" class="left">Sispeck: Sex</label>' +
+ 						'<br>' +
+ 						'<select name="sex_of_sispek" id="suspects_gender">' +
+ 							'<option value="female">F</option>' +
+ 							'<option value="male">G</option>' +
+ 						'</select>' +
+ 
+ 						'<br>' +
+ 
+ 						'<label for="age_of_sispek" class="left">Sispeck: Laj</label>' +
+ 						'<br>' +
+ 						'<select name="age_of_sispek" id="suspects_age">' +
+ 							'<option value="Ti Moun">Ti Moun</option>' +
+ 							'<option value="Jèn">Jèn</option>' +
+ 							'<option value="Gran Moun">Gran Moun</option>' +
+ 						'</select>' +
+ 
+ 						'<br>' +
+ 
+ 						'<label for="ki_lè" class="left">Ki Le</label>' +
+ 						'<br>' +
+ 						'<select name="ki_lè" id="when">' +
+ 							'<option value="Jounen">Jounen</option>' +
+ 							'<option value="Leswa">Leswa</option>' +
+ 							'<option value="Nwi">Nwi</option>' +
+ 						'</select>' +
+ 
+ 						'<br>'+
+ 						'<button type="save" onClick="save();">Save</button>';
+ 
+ 			marker.bindPopup(popupContent).openPopup();
+ 					
+ 
+ 		});
+ 
+ 			function save() {
+ 
+ 				//initialize the object
+ 				var CrimeReport = Parse.Object.extend("CrimeReport");
+ 				var crimeReport = new CrimeReport();
+ 				
+ 				//get the selection from the drop down menus
+ 				crimeReport.set("ki_zon", $('#crime_zone').val());
+ 				crimeReport.set("ki_sa_k_te_pase", $('#crime_type').val());
+ 				crimeReport.set("ak_ki_zam", $('#weapon').val());
+ 				crimeReport.set("sex_of_viktim", $('#victims_gender').val());
+ 				crimeReport.set("age_of_viktim", $('#victims_age').val());
+ 				crimeReport.set("sex_of_sispek", $('#suspects_gender').val());
+ 				crimeReport.set("age_of_sispek", $('#suspects_age').val());
+ 				crimeReport.set("ki_lè", $('#when').val());
+ 
+ 			}
+ 
+ 
+ 		//boilerplate style code for the features
+ 		function style(feature) {
+ 		    return {
+ 		    	clickable: false,
+ 		        fillColor: getColor(feature.properties.title),
+ 		        color: getColor(feature.properties.title),
+ 		        weight: 4,
+ 		        fillOpacity: 0.3
+ 		    };
+ 		}
+ 
+ 		//how to determing color of the territory by the territory's name
+ 		function getColor(territory) {
+ 		    return 	territory == "Bel Air"  ? '#2171b5' :
+ 		    		territory == "Fort National" ? '#4292c6' :
+ 		           	territory == "Solino"  ? '#6baed6' :
+ 		           	territory == "St. Martin"  ? '#3182bd' :
+ 		           	territory == "Foutouron La Saline"   ? "#08519c" :
+ 		           	territory == "Delmas 2-4"   ? '#fdbe85' :
+ 		                      '#74c476';
+ 		}
+ 
+ 		//what happeds when highlighting neighborhood		
+ 		function highlightFeature(e) {
+ 			var layer = e.target;
+ 
+ 			layer.setStyle({
+ 				
+ 				weight: 5,
+ 				color: '#666',
+ 				dashArray: '',
+ 				fillOpacity: 0.7
+ 			});
+ 
+ 			if (!L.Browser.ie && !L.Browser.opera) {
+ 				layer.bringToFront();
+ 			}
+ 
+ 		}
+ 
+ 		//when we need to reset the territory back 
+ 		//to its original style
+ 		function resetHighlight(e) {
+ 			gjlayer.resetStyle(e.target);
+ 		}
+ 
+ 		
+ 		//code that gets called/applied to each geoJson feature
+ 		function onEachFeature(feature, layer) {
+ 
+ 	      layer.on('mouseover', function(e){
+ 	        //highlightFeature(e);
+ 	        var popup = L.popup()
+ 	          .setLatLng(e.latlng)
+ 	          .setContent(feature.properties.title)
+ 	          .openOn(map);
+ 	      });
+ 
+       
+ 		}
+ 
+ 		//reading in the feature collection file 
+ 		//then setting up each feature by calling style 
+ 		//and onEachFeature
+ 		var gjlayer = L.geoJson(gjFeatureCollection, {
+ 			style: style,
+ 			onEachFeature: onEachFeature
+ 		}).addTo(map);
+ 		
+ 		</script>
+ 
+  	</body>
+ 
+  </html>
