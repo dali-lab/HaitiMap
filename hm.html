@@ -31,9 +31,9 @@
  	<div id="navigation">
  		<a href="about.html">OSIJE</a>
  		
- 		<a href="historical.html">ENFORMASYON ISTORIK</a>
+ 		<a href="historical.html">ENFOMASYON ISTORIK</a>
  
- 		<a href="hm.html">RAPOTE YON KRIM</a>
+ 		<a href="hm.html">RAP&Ograve;TE YON KRIM</a>
  		
  			
  	</div>
@@ -43,8 +43,13 @@
  	<div id="content">
  
  		<div id="title" class="pad">
- 			<h1>RAPOTE YON KRIM</h1>
- 			<h2>Klike pou rapòte yon krim</h2>
+ 			<h1>RAP&Ograve;TE YON KRIM</h1>
+ 			<h2>Klike pou rap&ograve;te yon krim</h2>
+ 			<p><strong>Limit Responsibilite Nou:</strong>
+			Tout enf&ograve;masyon nan tablo a se k&ograve;r&egrave;k selon tout sa nou konnen. Sepandan tout donne yo kapab genyen er&egrave; paske jan nou ranmase ak prezante enf&ograve;masyon nan depan de on&egrave;tete moun ki bay enf&ograve;masyon nan. </p>
+
+			<p><strong>On&egrave;tete ak Konfidansyalite:</strong>
+			Tout sa ou antre dwe k&ograve;r&egrave;k ak veridik. Sa vle di pa bay manti! L&egrave; ou antre donne, pa s&egrave;vi ak non p&egrave;son- ni non viktim, ni non sispek, ni non ou menm. Ou dwe pwoteje konfidansyalite tout moun yo.</p>
  			
  		</div>
  
@@ -62,14 +67,14 @@
  
  
  		//initialize a map and set it to the correct zoom
- 		var map = L.map('map', {zoomControl: false}).setView([18.559, 72.333], 15);
+ 		var map = L.map('map', {zoomControl: false}).setView([18.559, -72.333], 15);
  
  		//get the tiles from the HaitiMap project from Mapbox
  		L.tileLayer('https://{s}.tiles.mapbox.com/v3/haitimap.i22979g9/{z}/{x}/{y}.png', {
  			maxZoom: 18,
  			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
  				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
- 				'Imagery © <a href="http://mapbox.com">Mapbox</a> ' + 'Limit zòn yo se apwoksimatif.',
+ 				'Imagery © <a href="http://mapbox.com">Mapbox</a> ' + 'Limit z&ograve;n yo se apwoksimatif.',
  			id: 'haitimap.i22979g9'
  		}).addTo(map);
  
@@ -104,7 +109,7 @@
  							'<option value="Konfli Domestik">Konfli Domestik</option>' +
  							'<option value="Konfli ak Lapolis">Konfli ak Lapolis</option>' +
  							'<option value="Revanj">Revanj</option>' +
- 							'<option value="Lòt Bagay">Lòt Bagay</option>' +
+ 							'<option value="L&ograve;t Bagay">L&ograve;t Bagay</option>' +
  						'</select>' +
  
  						'<br>' +
@@ -114,8 +119,8 @@
  						'<select name="ak_ki_zam" id="weapon">' +
  							'<option value="Bal">Bal</option>' +
  							'<option value="Kouto">Kouto</option>' +
- 							'<option value="Fòs fizik">Fòs fizik</option>' +
- 							'<option value="Lòt bagay">Lòt bagay</option>' +
+ 							'<option value="F&ograve;s fizik">F&ograve;s fizik</option>' +
+ 							'<option value="L&ograve;t bagay">L&ograve;t bagay</option>' +
  						'</select>' +
  
  						'<br>' +
@@ -135,7 +140,7 @@
  						'<br>' +
  						'<select name="age_of_viktim" id="victims_age">' +
  							'<option value="Ti Moun">Ti Moun</option>' +
- 							'<option value="Jèn">Jèn</option>' +
+ 							'<option value="J&egrave;n">J&egrave;n</option>' +
  							'<option value="Gran Moun">Gran Moun</option>' +
  						'</select>'  +
  
@@ -155,15 +160,15 @@
  						'<br>' +
  						'<select name="age_of_sispek" id="suspects_age">' +
  							'<option value="Ti Moun">Ti Moun</option>' +
- 							'<option value="Jèn">Jèn</option>' +
+ 							'<option value="J&egrave;n">J&egrave;n</option>' +
  							'<option value="Gran Moun">Gran Moun</option>' +
  						'</select>' +
  
  						'<br>' +
  
- 						'<label for="ki_lè" class="left">Ki Le</label>' +
+ 						'<label for="ki_l&egrave;" class="left">Ki Le</label>' +
  						'<br>' +
- 						'<select name="ki_lè" id="when">' +
+ 						'<select name="ki_l&egrave;" id="when">' +
  							'<option value="Jounen">Jounen</option>' +
  							'<option value="Leswa">Leswa</option>' +
  							'<option value="Nwi">Nwi</option>' +
@@ -191,7 +196,7 @@
  				crimeReport.set("age_of_viktim", $('#victims_age').val());
  				crimeReport.set("sex_of_sispek", $('#suspects_gender').val());
  				crimeReport.set("age_of_sispek", $('#suspects_age').val());
- 				crimeReport.set("ki_lè", $('#when').val());
+ 				crimeReport.set("ki_l&egrave;", $('#when').val());
  
  			}
  

@@ -30,6 +30,19 @@
  	text-decoration: none;
  }
  
+ #text {
+  position: absolute;
+  background: white;
+  
+  z-index: 100;
+ }
+ #text h1, h2, p {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 600;
+  color: black;
+  text-align: left;
+ }
+
  #navigation a:hover {
  	color: grey;
  } 
@@ -46,7 +59,7 @@
  	z-index: 100;
  }
  
- #content h1, h2 {
+ #content h1, h2, p {
  	font-family: 'Open Sans Condensed', sans-serif;
  	font-weight: 600;
  	color: white;
